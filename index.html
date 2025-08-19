@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwacHha mart - Your Neighborhood Proficiency Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+            min-height: 100vh;
+        }
+        /* Header and Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70px;
+        }
+        nav li {
+            margin: 0 1.5rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #388E3C);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        nav a:hover::before {
+            left: 0;
+        }
+        nav a:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* Main Content */
+        main {
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        section {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+        }
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+        section:nth-child(4) { animation-delay: 0.6s; }
+        section:nth-child(5) { animation-delay: 0.8s; }
+        section:nth-child(6) { animation-delay: 1s; }
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #4CAF50, #388E3C);
+            border-radius: 2px;
+        }
+        .caption {
+            font-size: 1.3rem;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .contact-item {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .contact-item h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .contact-item p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        /* Contact Form Styles */
+        .contact-form {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+        .contact-form h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        .form-group input, .form-group textarea {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 1rem auto 0;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            z-index: 1001;
+            font-weight: 600;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .notification.success {
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+        }
+        .notification.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        /* Gallery Scrolling Container */
+        .gallery-container {
+            position: relative;
+            margin-top: 2rem;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        .gallery-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 1.5rem;
+            padding: 1rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .gallery-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .gallery-item {
+            flex: 0 0 450px;
+            height: 395px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .gallery-image {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(56, 142, 60, 0.8));
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1.5rem 1rem 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #333;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .gallery-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .gallery-nav.prev {
+            left: 10px;
+        }
+        .gallery-nav.next {
+            right: 10px;
+        }
+        /* Locations Scrolling Container */
+        .locations-container {
+            position: relative;
+            margin-top: 2rem;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 600px;
+        }
+        .locations-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 2rem;
+            padding: 1rem;
+            height: 100%;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .locations-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .location-item {
+            flex: 0 0 500px;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            background: white;
+        }
+        .location-item h3 {
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 1rem;
+            margin: 0;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .location-item iframe {
+            width: 100%;
+            height: calc(50% - 30px);
+            border: none;
+            filter: contrast(1.1) saturate(1.2);
+        }
+        .location-image {
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .location-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #333;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .location-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .location-nav.prev {
+            left: 10px;
+        }
+        .location-nav.next {
+            right: 10px;
+        }
+        /* Scroll smooth behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 1rem 0;
+            }
+            nav li {
+                margin: 0.5rem 0.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            section {
+                padding: 2rem 1.5rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item {
+                flex: 0 0 350px;
+                height: 345px;
+            }
+            .location-item {
+                flex: 0 0 350px;
+            }
+            .locations-container {
+                height: 500px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .notification {
+                left: 10px;
+                right: 10px;
+                top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#locate">Locate Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <section id="home">
+                <h1>SwacHha mart</h1>
+                <p class="caption">Your trusted neighborhood proficiency store, serving fresh products and daily essentials with excellence. Experience clean, organized shopping in a hygienic environment where quality meets convenience and proficiency.</p>
+            </section>
+            <section id="about">
+                <h2>About Us</h2>
+                <p class="caption">At SwacHha mart, we believe in providing our community with high-quality products and exceptional service with utmost proficiency. Our store is designed with cleanliness and customer convenience in mind, offering everything you need for your daily lifestyle. From fresh groceries to household essentials, we're here to serve you with dedication, care, and professional expertise.</p>
+                <p class="caption">With 5 convenient locations across the city, we ensure that quality products and excellent service are always within your reach. Each of our stores maintains the same high standards of cleanliness, organization, proficiency, and customer satisfaction that define the SwacHha mart experience.</p>
+            </section>
+            <section id="gallery">
+                <h2>Gallery</h2>
+                <p class="caption">Take a visual tour of our clean and well-organized proficiency store</p>
+                
+                <div class="gallery-container">
+                    <button class="gallery-nav prev" onclick="scrollGallery('prev')">‹</button>
+                    <div class="gallery-scroll" id="galleryScroll">
+                        <div class="gallery-item gallery-image" style="background-image: url('project/photos/img1.jpg');">
+                            <div class="gallery-overlay"></div>
+                        </div>
+                        <div class="gallery-item gallery-image" style="background-image: url('project/photos/img2.jpg');">
+                            <div class="gallery-overlay"></div>
+                        </div>
+                        <div class="gallery-item gallery-image" style="background-image: url('project/photos/img3.jpg');">
+                            <div class="gallery-overlay"></div>
+                        </div>
+                        <div class="gallery-item gallery-image" style="background-image: url('project/photos/img4.jpg');">
+                            <div class="gallery-overlay"></div>
+                        </div>
+                        <div class="gallery-item gallery-image" style="background-image: url('project/photos/img5.jpg');">
+                            <div class="gallery-overlay"></div>
+                        </div>
+                    </div>
+                    <button class="gallery-nav next" onclick="scrollGallery('next')">›</button>
+                </div>
+            </section>
+            <section id="contact">
+                <h2>Contact Us</h2>
+                <p class="caption">Get in touch with us for any queries or feedback</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <h3>📞 Phone</h3>
+                        <p>+91 98765 43210<br>+91 87654 32109</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📧 Email</h3>
+                        <p>info@swachhamart.com<br>support@swachhamart.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>🏪 Head Office</h3>
+                        <p>123 Main Street<br>Nagar<br>Hyderabad, Telangana 500038</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>🕒 Store Hours</h3>
+                        <p>Mon-Sat: 6:00 AM - 11:00 PM<br>Sunday: 7:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3>📝 Send Us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="from_name">Your Name *</label>
+                                <input type="text" id="from_name" name="from_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reply_to">Email Address *</label>
+                                <input type="email" id="reply_to" name="reply_to" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="message">Comments *</label>
+                                <textarea id="message" name="message" placeholder="Please share your feedback, questions, or suggestions..." required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span id="btn-text">Send Message</span>
+                            <span id="btn-loading" style="display: none;">Sending...</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+            <section id="locate">
+                <h2>Locate Us</h2>
+                <p class="caption">Find any of our 5 convenient proficiency store locations across the city</p>
+                
+                <div class="locations-container">
+                    <button class="location-nav prev" onclick="scrollLocations('prev')">‹</button>
+                    <div class="locations-scroll" id="locationsScroll">
+                        <div class="location-item">
+                            <h3>Store 1 - Medchel</h3>
+                            <img src="project/photos1/img1.jpg" alt="Store 1 Medchel Image" class="location-image">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3802.380829052772!2d78.4805775!3d17.632113099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8793ed53082d%3A0x7431fa6236af1755!2sswacHh%20mart!5e0!3m2!1sen!2sin!4v1755585043022!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                       
+                        </div>
+                        <div class="location-item">
+                            <h3>Store 2 - Bowrampeta, Okridge School</h3>
+                            <img src="project/photos1/img2.jpg" alt="Store 2 Bowrampeta Image" class="location-image">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.8521719263563!2d78.3851188!3d17.562223499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8f6d6257ffa5%3A0xdfd6706a7c548b12!2sSwachh%20Mart!5e0!3m2!1sen!2sin!4v1755585074275!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        </div>
+                        <div class="location-item">
+                            <h3>Store 3 - Annaram</h3>
+                            <img src="project/photos1/img3.jpg" alt="Store 3 Annaram Image" class="location-image">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3802.360334676178!2d78.38286649999999!3d17.6330847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8b445b3e4ab3%3A0x46d8d9cdfc8aa511!2sSwachh%20Mart!5e0!3m2!1sen!2sin!4v1755584947562!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        </div>
+                        <div class="location-item">
+                            <h3>Store 4 - Medchel, KRL Kaman</h3>
+                            <img src="project/photos1/img4.jpg" alt="Store 4 Medchel KRL Kaman Image" class="location-image">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3802.196144043256!2d78.49004819999999!3d17.640866799999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9b3fcaaaeffd%3A0xab5e25c559a3a4d8!2sSwachh%20Mart!5e0!3m2!1sen!2sin!4v1755585153435!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        </div>
+                        <div class="location-item">
+                            <h3>Store 5 - Bowrampeta, Bus Stop</h3>
+                            <img src="project/photos1/img5.jpg" alt="Store 5 Bowrampeta Bus Stop Image" class="location-image">
+                           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.8546954472517!2d78.4007592!3d17.562103399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8fa874426813%3A0xb1add5021f9968fe!2sSwachh%20Mart!5e0!3m2!1sen!2sin!4v1755585188877!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        </div>
+                    </div>
+                    <button class="location-nav next" onclick="scrollLocations('next')">›</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <script>
+        // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init('t_Tcly-TLW_eKdIUu'); // Fixed: Removed backslashes
+        })();
+
+        // Contact Form Handler
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            
+            // Send email using EmailJS
+            emailjs.sendForm('service_2w7kopr', 'template_od0115i', this) // Fixed: Removed backslashes
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Show success message
+                    showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
+                    
+                    // Reset form
+                    document.getElementById('contact-form').reset();
+                    
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    showNotification('Failed to send message. Please try again later.', 'error');
+                })
+                .finally(function() {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    btnText.style.display = 'inline';
+                    btnLoading.style.display = 'none';
+                });
+        });
+
+        // Notification function
+        function showNotification(message, type) {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+            
+            // Click to dismiss
+            notification.addEventListener('click', () => {
+                notification.remove();
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 25px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Gallery scrolling function
+        function scrollGallery(direction) {
+            const gallery = document.getElementById('galleryScroll');
+            const scrollAmount = 470; // width of one item + gap
+            
+            if (direction === 'next') {
+                gallery.scrollLeft += scrollAmount;
+            } else {
+                gallery.scrollLeft -= scrollAmount;
+            }
+        }
+        
+        // Locations scrolling function
+        function scrollLocations(direction) {
+            const locations = document.getElementById('locationsScroll');
+            const scrollAmount = 520; // width of one item + gap
+            
+            if (direction === 'next') {
+                locations.scrollLeft += scrollAmount;
+            } else {
+                locations.scrollLeft -= scrollAmount;
+            }
+        }
+        
+        // Add click effect to gallery items
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1.05)';
+                }, 150);
+            });
+        });
+        
+        // Auto-scroll galleries
+        let galleryAutoScroll = setInterval(() => {
+            const gallery = document.getElementById('galleryScroll');
+            if (gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth) {
+                gallery.scrollLeft = 0;
+            } else {
+                gallery.scrollLeft += 470;
+            }
+        }, 4000);
+        
+        let locationsAutoScroll = setInterval(() => {
+            const locations = document.getElementById('locationsScroll');
+            if (locations.scrollLeft >= locations.scrollWidth - locations.clientWidth) {
+                locations.scrollLeft = 0;
+            } else {
+                locations.scrollLeft += 520;
+            }
+        }, 6000);
+        
+        // Pause auto-scroll on hover
+        document.getElementById('galleryScroll').addEventListener('mouseenter', () => {
+            clearInterval(galleryAutoScroll);
+        });
+        document.getElementById('galleryScroll').addEventListener('mouseleave', () => {
+            galleryAutoScroll = setInterval(() => {
+                const gallery = document.getElementById('galleryScroll');
+                if (gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth) {
+                    gallery.scrollLeft = 0;
+                } else {
+                    gallery.scrollLeft += 470;
+                }
+            }, 4000);
+        });
+        
+        document.getElementById('locationsScroll').addEventListener('mouseenter', () => {
+            clearInterval(locationsAutoScroll);
+        });
+        document.getElementById('locationsScroll').addEventListener('mouseleave', () => {
+            locationsAutoScroll = setInterval(() => {
+                const locations = document.getElementById('locationsScroll');
+                if (locations.scrollLeft >= locations.scrollWidth - locations.clientWidth) {
+                    locations.scrollLeft = 0;
+                } else {
+                    locations.scrollLeft += 520;
+                }
+            }, 6000);
+        });
+    </script>
+</body>
+</html>
